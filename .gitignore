@@ -1,0 +1,33 @@
+# Environment variables
+.env
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.build
+build/
+build
+
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+#test
+coverage
+.coverage
+
+# IDE and tools
+.vscode/
+.idea/
+*.swp
+*.swo
+.claudeai/
+.claude
