@@ -19,7 +19,7 @@ export class Email {
     }
 
     if (!this.isValid(trimmedEmail)) {
-      throw new ValidationError('Please provide a valid e-mail')
+      throw new ValidationError('Informe um e-mail válido')
     }
 
     return new Email(trimmedEmail)

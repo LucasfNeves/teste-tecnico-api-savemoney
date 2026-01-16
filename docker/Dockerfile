@@ -2,8 +2,7 @@ FROM node:22-slim
 
 WORKDIR /app
 
-RUN chown -R node:node /app
-
-USER node
+# Run as root to avoid permission issues with mounted volumes in development
+USER root
 
 EXPOSE 3000 5173
