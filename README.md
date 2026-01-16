@@ -98,9 +98,9 @@ npm start
 
 A API está hospedada no **Render** e disponível em:
 
-- **Base URL**: `https://poc-authenticate-api.onrender.com`
+- **Base URL**: `[https://poc-authenticate-api.onrender.com](https://teste-tecnico-api-savemoney.onrender.com/)`
 - **Todas as rotas**: Prefixadas com `/api`
-- **Documentação Swagger**: `https://poc-authenticate-api.onrender.com/api/docs/`
+- **Documentação Swagger**: `[https://poc-authenticate-api.onrender.comapi/docs/`](https://teste-tecnico-api-savemoney.onrender.com/api/docs/`)
 
 > ⚠️ **Nota**: Por estar hospedada no Render (plano gratuito), a primeira requisição pode ter um tempo de resposta mais longo devido ao "cold start" do servidor.
 
