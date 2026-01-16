@@ -71,7 +71,7 @@ describe('SignupUseCase', () => {
     const userData = makeUserData({ email: 'invalid-email' })
 
     await expect(signUpUseCase.execute(userData)).rejects.toThrow(
-      'Please provide a valid e-mail'
+      'Informe um e-mail válido'
     )
   })
 
