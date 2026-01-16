@@ -7,6 +7,7 @@ import {
   GetUsersExceptCurrentUserUseCaseResponse,
 } from '../../src/application/usecase/user/get-users-except-current-user'
 import { GetUsersExceptCurrentUserController } from '../../src/application/controller/user/get-users-except-current-user-controller'
+import { DataMaskingService } from '../../src/application/controller/helpers/data-masking'
 
 type GetUsersExceptCurrentUserUseCaseExecute = (
   currentUserId: string
@@ -14,6 +15,7 @@ type GetUsersExceptCurrentUserUseCaseExecute = (
 
 describe('GetUsersExceptCurrentUserController', () => {
   let getUsersExceptCurrentUserUseCaseMock: jest.Mocked<GetUsersExceptCurrentUserUseCase>
+  let dataMaskingService: DataMaskingService
   let controller: GetUsersExceptCurrentUserController
 
   const makeUserData = (
@@ -29,6 +31,8 @@ describe('GetUsersExceptCurrentUserController', () => {
   }
 
   beforeEach(() => {
+    dataMaskingService = new DataMaskingService()
+
     getUsersExceptCurrentUserUseCaseMock = {
       execute: jest
         .fn<GetUsersExceptCurrentUserUseCaseExecute>()
@@ -36,7 +40,8 @@ describe('GetUsersExceptCurrentUserController', () => {
     } as unknown as jest.Mocked<GetUsersExceptCurrentUserUseCase>
 
     controller = new GetUsersExceptCurrentUserController(
-      getUsersExceptCurrentUserUseCaseMock
+      getUsersExceptCurrentUserUseCaseMock,
+      dataMaskingService
     )
   })
 
@@ -68,7 +73,19 @@ describe('GetUsersExceptCurrentUserController', () => {
     const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(200)
-    expect(response.body).toEqual([userData])
+    expect(response.body).toBeInstanceOf(Array)
+    expect(response.body).toHaveLength(1)
+
+    const responseBody = response.body as unknown as Array<{
+      id: string
+      name: string
+      email: string
+    }>
+    expect(responseBody[0]).toHaveProperty('id', userData.id)
+    expect(responseBody[0]).toHaveProperty('name')
+    expect(responseBody[0]).toHaveProperty('email')
+    expect(responseBody[0].name).toMatch(/^[A-Za-z]+(?: [A-Z]\.)*$/)
+    expect(responseBody[0].email).toMatch(/^.{2,3}\*\*\*@.{2,3}\*\*\*\..+$/)
     expect(getUsersExceptCurrentUserUseCaseMock.execute).toHaveBeenCalledWith(
       userId
     )
@@ -126,8 +143,9 @@ describe('GetUsersExceptCurrentUserController', () => {
       metadata: { id: userId },
     }
 
-    await controller.handle(request)
+    const response = await controller.handle(request)
 
+    expect(response.statusCode).toBe(200)
     expect(getUsersExceptCurrentUserUseCaseMock.execute).toHaveBeenCalledWith(
       userId
     )

@@ -1,3 +1,4 @@
+import { DataMaskingService } from '../../application/controller/helpers/data-masking'
 import { SignInController } from '../../application/controller/sign-in'
 import { SignupController } from '../../application/controller/sign-up'
 import { DeleteUserController } from '../../application/controller/user/delete-user-controller'
@@ -45,11 +46,16 @@ export const makeGetUserByIdController = () => {
 
 export const makeGetUsersExceptCurrentUserController = () => {
   const usersRepository = new SequelizeUsersRepository()
+  const dataMaskingService = new DataMaskingService()
   const getUsersExceptCurrentUserUseCase = new GetUsersExceptCurrentUserUseCase(
     usersRepository
   )
+
   const getUsersExceptCurrentUserController =
-    new GetUsersExceptCurrentUserController(getUsersExceptCurrentUserUseCase)
+    new GetUsersExceptCurrentUserController(
+      getUsersExceptCurrentUserUseCase,
+      dataMaskingService
+    )
 
   return getUsersExceptCurrentUserController
 }
