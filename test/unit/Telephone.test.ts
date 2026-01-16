@@ -32,61 +32,61 @@ describe('Telephone Value Object', () => {
   describe('validation', () => {
     it('should throw error when number is not an integer', () => {
       expect(() => Telephone.create(123.45, 11)).toThrow(
-        'Número de telefone deve ser um inteiro positivo'
+        'Número de telefone inválido'
       )
     })
 
     it('should throw error when number is negative', () => {
       expect(() => Telephone.create(-12345678, 11)).toThrow(
-        'Número de telefone deve ser um inteiro positivo'
+        'Número de telefone inválido'
       )
     })
 
     it('should throw error when number is zero', () => {
       expect(() => Telephone.create(0, 11)).toThrow(
-        'Número de telefone deve ser um inteiro positivo'
+        'Número de telefone inválido'
       )
     })
 
     it('should throw error when number has less than 8 digits', () => {
       expect(() => Telephone.create(1234567, 11)).toThrow(
-        'Número de telefone deve ter exatamente 8 ou 9 dígitos'
+        'O número de telefone deve ter 8 ou 9 números'
       )
     })
 
     it('should throw error when number has more than 9 digits', () => {
       expect(() => Telephone.create(1234567890, 11)).toThrow(
-        'Número de telefone deve ter exatamente 8 ou 9 dígitos'
+        'O número de telefone deve ter 8 ou 9 números'
       )
     })
 
     it('should throw error when area code is not an integer', () => {
       expect(() => Telephone.create(12345678, 11.5)).toThrow(
-        'Código de área deve ser um inteiro positivo'
+        'Código de área inválido'
       )
     })
 
     it('should throw error when area code is negative', () => {
       expect(() => Telephone.create(12345678, -11)).toThrow(
-        'Código de área deve ser um inteiro positivo'
+        'Código de área inválido'
       )
     })
 
     it('should throw error when area code is zero', () => {
       expect(() => Telephone.create(12345678, 0)).toThrow(
-        'Código de área deve ser um inteiro positivo'
+        'Código de área inválido'
       )
     })
 
     it('should throw error when area code has less than 2 digits', () => {
       expect(() => Telephone.create(12345678, 1)).toThrow(
-        'Código de área deve ter exatamente 2 dígitos'
+        'O DDD deve ter 2 números'
       )
     })
 
     it('should throw error when area code has more than 2 digits', () => {
       expect(() => Telephone.create(12345678, 111)).toThrow(
-        'Código de área deve ter exatamente 2 dígitos'
+        'O DDD deve ter 2 números'
       )
     })
   })

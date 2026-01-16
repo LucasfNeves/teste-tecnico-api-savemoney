@@ -94,7 +94,7 @@ describe('SignInController', () => {
 
   it('should return 400 when validation fails for invalid email', async () => {
     signInUseCaseMock.execute.mockRejectedValueOnce(
-      new ValidationError('Please provide a valid e-mail')
+      new ValidationError('Informe um e-mail válido')
     )
 
     const authData = makeAuthData({ email: 'invalid-email' })
@@ -105,7 +105,7 @@ describe('SignInController', () => {
 
     expect(response.statusCode).toBe(400)
     expect(response.body).toHaveProperty('message')
-    expect(response.body.message).toBe('Please provide a valid e-mail')
+    expect(response.body.message).toBe('Informe um e-mail válido')
   })
 
   it('should return 400 when validation fails for empty password', async () => {

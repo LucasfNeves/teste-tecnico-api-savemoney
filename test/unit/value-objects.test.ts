@@ -20,13 +20,11 @@ describe('Value Objects Validation', () => {
 
     it('should throw error when email is invalid', () => {
       expect(() => Email.create('invalid-email')).toThrow(
-        'Please provide a valid e-mail'
+        'Informe um e-mail válido'
       )
-      expect(() => Email.create('test@')).toThrow(
-        'Please provide a valid e-mail'
-      )
+      expect(() => Email.create('test@')).toThrow('Informe um e-mail válido')
       expect(() => Email.create('@example.com')).toThrow(
-        'Please provide a valid e-mail'
+        'Informe um e-mail válido'
       )
     })
   })
@@ -86,52 +84,52 @@ describe('Value Objects Validation', () => {
 
     it('should throw error when number is not an integer', () => {
       expect(() => Telephone.create(123.45, 11)).toThrow(
-        'Número de telefone deve ser um inteiro positivo'
+        'Número de telefone inválido'
       )
     })
 
     it('should throw error when number is not positive', () => {
       expect(() => Telephone.create(-987654321, 11)).toThrow(
-        'Número de telefone deve ser um inteiro positivo'
+        'Número de telefone inválido'
       )
       expect(() => Telephone.create(0, 11)).toThrow(
-        'Número de telefone deve ser um inteiro positivo'
+        'Número de telefone inválido'
       )
     })
 
     it('should throw error when number has less than 8 digits', () => {
       expect(() => Telephone.create(1234567, 11)).toThrow(
-        'Número de telefone deve ter exatamente 8 ou 9 dígitos'
+        'O número de telefone deve ter 8 ou 9 números'
       )
     })
 
     it('should throw error when number has more than 9 digits', () => {
       expect(() => Telephone.create(9876543210, 11)).toThrow(
-        'Número de telefone deve ter exatamente 8 ou 9 dígitos'
+        'O número de telefone deve ter 8 ou 9 números'
       )
     })
 
     it('should throw error when area code is not an integer', () => {
       expect(() => Telephone.create(987654321, 11.5)).toThrow(
-        'Código de área deve ser um inteiro positivo'
+        'Código de área inválido'
       )
     })
 
     it('should throw error when area code is not positive', () => {
       expect(() => Telephone.create(987654321, -11)).toThrow(
-        'Código de área deve ser um inteiro positivo'
+        'Código de área inválido'
       )
       expect(() => Telephone.create(987654321, 0)).toThrow(
-        'Código de área deve ser um inteiro positivo'
+        'Código de área inválido'
       )
     })
 
     it('should throw error when area code does not have exactly 2 digits', () => {
       expect(() => Telephone.create(987654321, 1)).toThrow(
-        'Código de área deve ter exatamente 2 dígitos'
+        'O DDD deve ter 2 números'
       )
       expect(() => Telephone.create(987654321, 111)).toThrow(
-        'Código de área deve ter exatamente 2 dígitos'
+        'O DDD deve ter 2 números'
       )
     })
   })

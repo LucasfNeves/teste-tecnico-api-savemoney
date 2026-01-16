@@ -87,16 +87,18 @@ export class SequelizeUsersRepository implements UsersRepository {
   async update(
     userId: string,
     data: Partial<UserCreationInput>
-  ): Promise<UserPublicData | null> {
-    const [affectedCount, [updatedUser]] = await User.update(data, {
+  ): Promise<UserPublicData> {
+    const [affectedCount, affectedRows] = await User.update(data, {
       where: { id: userId },
       returning: true,
+      individualHooks: true,
     })
 
-    if (affectedCount === 0 || !updatedUser) {
-      return null
+    if (affectedCount === 0 || !affectedRows || affectedRows.length === 0) {
+      throw new Error('Usuário não encontrado ou não foi atualizado')
     }
 
+    const updatedUser = affectedRows[0]
     const { id, name, email, telephones, created_at, updated_at } =
       updatedUser.toJSON() as unknown as UserJsonData
 

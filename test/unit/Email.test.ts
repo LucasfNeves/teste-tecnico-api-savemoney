@@ -30,9 +30,7 @@ describe('Email Value Object', () => {
     'userexample.com',
     'user @example.com',
   ])('should throw error for invalid email: %s', (invalidEmail) => {
-    expect(() => Email.create(invalidEmail)).toThrow(
-      'Please provide a valid e-mail'
-    )
+    expect(() => Email.create(invalidEmail)).toThrow('Informe um e-mail válido')
   })
 
   test.each([
